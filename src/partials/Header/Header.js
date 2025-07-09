@@ -1,14 +1,13 @@
 import {
     AppBar,
     Toolbar,
-    Typography,
     Button,
     IconButton
 } from '@mui/material'
 
 import MenuIcon from '@mui/icons-material/Menu'
 
-import HeaderTitle from './Header.style'
+import HeaderTitle from './Header.style' 
 
 const Header = () => {
     return (
@@ -18,7 +17,7 @@ const Header = () => {
           <IconButton
             size="large"
             edge="start"
-            color="inherit"
+            color="secondary"
             aria-label="menu"
           >
             <MenuIcon />
