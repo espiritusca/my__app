@@ -13,7 +13,7 @@ const Default = ({ children }) => {
         
         <>
             <Header />
-            <StyledContainer>
+            <StyledContainer maxWidth='xl'>
              {children}
             </StyledContainer>
         </>
