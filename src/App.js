@@ -11,8 +11,9 @@ import Customers from './pages/Customers.js'
 
 const App = () => {
   return (
-    <TemplateDefault>
-      <Router>
+
+    <Router>
+      <TemplateDefault>
         <Routes>
 
           <Route path="/customers" element={
@@ -25,8 +26,10 @@ const App = () => {
               <Home />
             </TemplatePage>} />
         </Routes>
-      </Router>
-    </TemplateDefault>
+        
+      </TemplateDefault>
+    </Router>
+
   )
 }
 
