@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 import { Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import axios from 'axios'
+
 
 import CustomerCard from '../../components/CustomerCard'
 
@@ -11,6 +14,8 @@ const Item = styled(CustomerCard)(({ theme }) => ({
 }))
 
 const List = () => {
+
+  const navigate = useNavigate()
 
   const [customers, setCustomers] = useState([])
 
@@ -29,13 +34,13 @@ const List = () => {
   }, [])
 
   const handleRemoveCustomer = id => {
-    axios.delete(`https://reqres.in/api/users/${id}`,{
+    axios.delete(`https://reqres.in/api/users/${id}`, {
       headers: {
         'x-api-key': 'reqres-free-v1'
       }
     })
       .then(response => {
-        
+
         const newCustomersState = customers.filter(customer => customer.id !== id)
 
         setCustomers(newCustomersState)
@@ -43,24 +48,29 @@ const List = () => {
       })
   }
 
+  const handleEditCustomer = id => {
+    navigate(`/customers/edit/${id}`)
+  }
+
   return (
 
-      <Grid container>
-        {
-          customers.map(customer => (
-            <Grid item size={{ xs: 12 , md: 4 }}>
-              <Item
-                id={customer.id}
-                name={customer.first_name}
-                lastname={customer.last_name}
-                email={customer.email}
-                avatar={customer.avatar}
-                onRemoveCustomer={handleRemoveCustomer}
-              />
-            </Grid>
-          ))
-        }
-      </Grid>
+    <Grid container>
+      {
+        customers.map(customer => (
+          <Grid item size={{ xs: 12, md: 4 }}>
+            <Item
+              id={customer.id}
+              name={customer.first_name}
+              lastname={customer.last_name}
+              email={customer.email}
+              avatar={customer.avatar}
+              onRemoveCustomer={handleRemoveCustomer}
+              onEditCustomer={handleEditCustomer}
+            />
+          </Grid>
+        ))
+      }
+    </Grid>
 
   )
 }
