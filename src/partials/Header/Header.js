@@ -1,15 +1,16 @@
 import { useState } from 'react'
 import {
-    AppBar,
-    Toolbar,
-    Button,
-    IconButton,
-    Drawer,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemButton,
-    ListItemText,
+  AppBar,
+  Toolbar,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemButton,
+  ListItemText,
+  Typography,
 } from '@mui/material'
 
 import { useNavigate } from 'react-router-dom'
@@ -19,9 +20,9 @@ import HomeIcon from '@mui/icons-material/Home'
 import PersonAdd from '@mui/icons-material/PersonAdd'
 import PersonIcon from '@mui/icons-material/Person'
 
-import HeaderTitle from './Header.style' 
+import HeaderTitle from './Header.style'
 
-const Header = () => {
+const Header = ({ user }) => {
   const navigate = useNavigate()
 
   const [menuOpen, setMenuOpen] = useState(false)
@@ -35,68 +36,72 @@ const Header = () => {
     handleToggleMenu()
   }
 
-    return (
+  return (
 
-      <>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="secondary"
-              aria-label="menu"
-              onClick={() => handleToggleMenu()}
-            >
-              <MenuIcon />
-            </IconButton>
-            <HeaderTitle variant="h6" component="div">
-              My App
-            </HeaderTitle>
-            <Button color="inherit">Login</Button>
-          </Toolbar>
-        </AppBar>
+    <>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="secondary"
+            aria-label="menu"
+            onClick={() => handleToggleMenu()}
+          >
+            <MenuIcon />
+          </IconButton>
+          <HeaderTitle variant="h6" component="div">
+            My App
+          </HeaderTitle>
+          {
+            user.logged
+            ? <Typography variant='h6'>{user.email}</Typography>
+            : <Button color="inherit">Login</Button>
+          }
+        </Toolbar>
+      </AppBar>
 
-        <Drawer open={menuOpen} onClose={() => handleToggleMenu()}>
-          <List>
-            <ListItem sx={{ display: 'block' }}>
+      <Drawer open={menuOpen} onClose={() => handleToggleMenu()}>
+        <List>
+          <ListItem sx={{ display: 'block' }}>
 
-              <ListItemButton onClick={() => handleMenuClick('/')}>
+            <ListItemButton onClick={() => handleMenuClick('/')}>
 
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
 
-                <ListItemText>Início</ListItemText>
-                
-              </ListItemButton>
+              <ListItemText>Início</ListItemText>
 
-              <ListItemButton onClick={() => handleMenuClick('/customers')}>
+            </ListItemButton>
 
-                <ListItemIcon>
-                  <PersonIcon />
-                </ListItemIcon>
+            <ListItemButton onClick={() => handleMenuClick('/customers')}>
 
-                <ListItemText>Lista de Clientes</ListItemText>
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
 
-              </ListItemButton>
+              <ListItemText>Lista de Clientes</ListItemText>
 
-              <ListItemButton onClick={() => handleMenuClick('/customers/add')}>
+            </ListItemButton>
 
-                <ListItemIcon>
-                  <PersonAdd />
-                </ListItemIcon>
+            <ListItemButton onClick={() => handleMenuClick('/customers/add')}>
 
-                <ListItemText>Cadastro de Clientes</ListItemText>
+              <ListItemIcon>
+                <PersonAdd />
+              </ListItemIcon>
 
-              </ListItemButton>
+              <ListItemText>Cadastro de Clientes</ListItemText>
 
-            </ListItem>
-          </List>
-        </Drawer>
+            </ListItemButton>
 
-      </>
+          </ListItem>
+        </List>
+      </Drawer>
 
-    )
+    </>
+
+  )
 }
 
 export default Header
